@@ -25,14 +25,27 @@ public class Main {
 	    //The script which will execute the ajira implementation of the problem
 	    String ajiraScriptFileName = args[4];
 	    
+	    // ---------------------------------------------------------------------
+	    // ---------------------------------------------------------------------
+	    // 						CALCULATE INPUT SIZE
+	    
 	    //Get the input file and make sure it exists
-	    File inputFile = new File(inputFileName);
-	    if (!inputFile.exists()){
-		System.err.println("Input file " + inputFileName + " does not exist.");
-		System.exit(1);
+	    File directory = new File(inputFileName);
+	    if (!directory.exists()){
+	    	System.err.println("Input file " + inputFileName + " does not exist.");
+	    	System.exit(1);
 	    }
 	    
-	    //For now...
+	    // Calculate the size of our input
+	    long size = 0;
+	    for(File file : directory.listFiles()){
+	    	if(file.isFile()){
+	    		size += file.length();
+	    	}
+	    }
+	    
+	    // ---------------------------------------------------------------------
+	    // ---------------------------------------------------------------------
 	    
 	    
 
