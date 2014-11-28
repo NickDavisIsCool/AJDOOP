@@ -1,13 +1,18 @@
 package com.silverlines.ajdoop;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 public class Main {
 
-	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
+	public static void main(String[] args) throws IOException {
 	
 	    //Read in arguments and get things set up
 	    //Make sure the user supplies all 4 arguments
@@ -59,20 +64,36 @@ public class Main {
 	    //			- first line is hadoop equation, second is ajira
 	    // 		3. Creates 2 data files for hadoop and ajira
 	    //			- first line is # of data points in file, rest is csv data
+	    //	Assumes:
+	    //		1. programType is a string with only [a-z][A-Z][0-9] chars
 	    // --------------------------------------------------------------------- //
 	    
 	    File dataDir = new File("/tmp/AJDOOP_EXECUTION_DATA");
 	    File probDir = new File("/tmp/AJDOOP_EXECUTION_DATA/" + programType);
-	    PrintWriter regInfo = new PrintWriter("/tmp/AJDOOP_EXECUTION_DATA/" + programType + "/reg_info.txt", "UTF-8");
-	    PrintWriter hadInfo = new PrintWriter("/tmp/AJDOOP_EXECUTION_DATA/" + programType + "/hadoop_data.txt", "UTF-8");
-	    PrintWriter ajiInfo = new PrintWriter("/tmp/AJDOOP_EXECUTION_DATA/" + programType + "/ajira_data.txt", "UTF-8");
+	    File regInfo = new File("/tmp/AJDOOP_EXECUTION_DATA/" + programType + "/reg_info.txt");
+	    File hadInfo = new File("/tmp/AJDOOP_EXECUTION_DATA/" + programType + "/hadoop_data.txt");
+	    File ajiInfo = new File("/tmp/AJDOOP_EXECUTION_DATA/" + programType + "/ajira_data.txt");
 	    
 	    dataDir.mkdir();
 	    probDir.mkdir();
-	    regInfo.println("0");
-	    regInfo.println("0");
-	    hadInfo.println("0");
-	    ajiInfo.println("0");
+	    if(!regInfo.isFile()){
+	    	regInfo.createNewFile();
+	    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
+	    	bw.write("0\n0");
+	    	bw.close();
+	    }
+	    if(!hadInfo.isFile()){
+	    	hadInfo.createNewFile();
+	    	BufferedWriter bw = new BufferedWriter(new FileWriter(hadInfo.getAbsoluteFile()));
+	    	bw.write("0");
+	    	bw.close();
+	    }
+	    if(!ajiInfo.isFile()){
+	    	ajiInfo.createNewFile();
+	    	BufferedWriter bw = new BufferedWriter(new FileWriter(ajiInfo.getAbsoluteFile()));
+	    	bw.write("0");
+	    	bw.close();
+	    }
 	  
 	    
 	    // --------------------------------------------------------------------- //
@@ -91,6 +112,21 @@ public class Main {
 	    //			- Honestly, early stages could be a constant (10?)
 	    // --------------------------------------------------------------------- //	    
 	    
+	    BufferedReader br = new BufferedReader(new FileReader(regInfo));
+	    String hadoop_reg = br.readLine();
+	    String ajira_reg = br.readLine();
+	    
+	    if(hadoop_reg.equals("0")){
+	    	//execute hadoop script, get time data, calculate regression formula, write to file
+	    }
+	    else if(ajira_reg.equals("0")){
+	    	//execute ajira script, get time data, calculate regression formula, write to file
+	    }
+	    else{
+	    	//take regression info, calculate most optimal, run that script, get time data, re-calculate, write to file
+	    }
+	    
+	    //END
 
 	}
 
