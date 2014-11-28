@@ -1,10 +1,13 @@
 package com.silverlines.ajdoop;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
 	
 	    //Read in arguments and get things set up
 	    //Make sure the user supplies all 4 arguments
@@ -45,12 +48,32 @@ public class Main {
 	    		size += file.length();
 	    	}
 	    }
+
 	    
 	    // --------------------------------------------------------------------- //
 	    // --------------------------------------------------------------------- //
+	    // 						SPAWN PROGRAM DIRECTORY
+	    //	Does:
+	    //		1. Creates a directory for the program name given on input
+	    //		2. Creates a dummy regression file with two lines of 1 0.
+	    //			- first line is hadoop equation, second is ajira
+	    // 		3. Creates 2 data files for hadoop and ajira
+	    //			- first line is # of data points in file, rest is csv data
+	    // --------------------------------------------------------------------- //
 	    
+	    File dataDir = new File("/tmp/AJDOOP_EXECUTION_DATA");
+	    File probDir = new File("/tmp/AJDOOP_EXECUTION_DATA/" + programType);
+	    PrintWriter regInfo = new PrintWriter("/tmp/AJDOOP_EXECUTION_DATA/" + programType + "/reg_info.txt", "UTF-8");
+	    PrintWriter hadInfo = new PrintWriter("/tmp/AJDOOP_EXECUTION_DATA/" + programType + "/hadoop_data.txt", "UTF-8");
+	    PrintWriter ajiInfo = new PrintWriter("/tmp/AJDOOP_EXECUTION_DATA/" + programType + "/ajira_data.txt", "UTF-8");
 	    
-	    
+	    dataDir.mkdir();
+	    probDir.mkdir();
+	    regInfo.println("0");
+	    regInfo.println("0");
+	    hadInfo.println("0");
+	    ajiInfo.println("0");
+	  
 	    
 	    // --------------------------------------------------------------------- //
 	    // --------------------------------------------------------------------- //
