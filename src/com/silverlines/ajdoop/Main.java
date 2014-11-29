@@ -264,7 +264,9 @@ public class Main {
 			    	if(i == 0){
 			    		y[j] = Double.parseDouble(output_data[i]);
 			    	}
-			    	x[j][i-1] = Double.parseDouble(output_data[i]);
+			    	else{
+			    		x[j][i-1] = Double.parseDouble(output_data[i]);
+			    	}
 			    }
 			    br.close();
 			    
@@ -328,7 +330,9 @@ public class Main {
 			    	if(i == 0){
 			    		y[j] = Double.parseDouble(output_data[i]);
 			    	}
-			    	x[j][i-1] = Double.parseDouble(output_data[i]);
+			    	else{
+			    		x[j][i-1] = Double.parseDouble(output_data[i]);
+			    	}
 			    }
 			    br.close();
 			    
