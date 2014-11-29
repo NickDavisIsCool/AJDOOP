@@ -241,8 +241,12 @@ public class Main {
 	    	if(hadoop_sum < ajira_sum){
 		    	ProcessBuilder pb = new ProcessBuilder(hadoopScriptFileName);
 		    	Process p = pb.start();
+		    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		    	p.waitFor();
-		    	String time = System.getenv("EXEC_TIME");
+		    	while((line = br.readLine()) != null){
+		    		lineB = line;
+		    	}
+		    	String time = lineB;
 		    	
 		    	String[] output_data = {time, Long.toString(size)};
 		    	
@@ -303,8 +307,9 @@ public class Main {
 	    	else{
 		    	ProcessBuilder pb = new ProcessBuilder(ajiraScriptFileName);
 		    	Process p = pb.start();
-		    	p.waitFor();
-		    	String time = System.getenv("EXEC_TIME");
+		    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		    	p.waitFor(); 
+		    	String time = br.readLine();
 		    	
 		    	String[] output_data = {time, Long.toString(size)};
 		    	
