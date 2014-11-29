@@ -132,12 +132,16 @@ public class Main {
 	    double[] input_data = {1, (double)size};
 	    int i, j;
 	    
+	    System.out.println(variables + "-"  + hadoop_reg + "-" + ajira_reg);
+	    
 	    if(hadoop_reg.equals("0")){
 	    	//execute hadoop script, get time data, calculate regression formula, write to file
 	    	ProcessBuilder pb = new ProcessBuilder(hadoopScriptFileName);
 	    	Process p = pb.start();
 	    	p.waitFor();
 	    	String time = System.getenv("EXEC_TIME");
+	    	
+	    	System.out.println("exec time, hadoop: " + time);
 	    	
 	    	String[] reg_data = {time, "0"};
 	    	String[] output_data = {time, Long.toString(size)};
@@ -166,7 +170,7 @@ public class Main {
 	    }
 	    else if(ajira_reg.equals("0")){
 	    	//execute ajira script, get time data, calculate regression formula, write to file
-	    	ProcessBuilder pb = new ProcessBuilder(ajiraScriptFileName);
+	    	ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", ajiraScriptFileName);
 	    	Process p = pb.start();
 	    	p.waitFor();
 	    	String time = System.getenv("EXEC_TIME");
@@ -209,7 +213,7 @@ public class Main {
 	    	}
 	    	
 	    	if(hadoop_sum < ajira_sum){
-		    	ProcessBuilder pb = new ProcessBuilder(hadoopScriptFileName);
+		    	ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", hadoopScriptFileName);
 		    	Process p = pb.start();
 		    	p.waitFor();
 		    	String time = System.getenv("EXEC_TIME");
@@ -267,7 +271,7 @@ public class Main {
 		    	}
 	    	}
 	    	else{
-		    	ProcessBuilder pb = new ProcessBuilder(ajiraScriptFileName);
+		    	ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", ajiraScriptFileName);
 		    	Process p = pb.start();
 		    	p.waitFor();
 		    	String time = System.getenv("EXEC_TIME");
