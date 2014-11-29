@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
@@ -16,6 +17,15 @@ import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
 public class Main {
+	
+	public static int linesInFile(File file) throws IOException{
+		int count = 0;
+	    LineNumberReader lnr = new LineNumberReader(new FileReader(file));
+		while(lnr.readLine() != null)
+			count++;
+		
+		return count;
+	}
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 	
@@ -132,8 +142,6 @@ public class Main {
 	    String line;
 	    String lineB = null;
 	    int numFields = reg_fields.split(",").length;
-	    double[][] x = new double[100][100];
-	    double[] y = new double[100];
 	    
 	    OLSMultipleLinearRegression mlr = new OLSMultipleLinearRegression();
 	    
@@ -234,6 +242,10 @@ public class Main {
 	    	}
 	    	
 	    	if(hadoop_sum < ajira_sum){
+	    		int data_points = linesInFile(hadInfo) - 1;
+	    	    double[][] x = new double[data_points][data_fields.split(",").length];
+	    	    double[] y = new double[data_points];
+	    	    
 		    	ProcessBuilder pb = new ProcessBuilder(hadoopScriptFileName);
 		    	Process p = pb.start();
 		    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -303,6 +315,10 @@ public class Main {
 		    	bw.close();
 	    	}
 	    	else{
+	    		int data_points = linesInFile(ajiInfo) - 1;
+	    	    double[][] x = new double[data_points][data_fields.split(",").length];
+	    	    double[] y = new double[data_points];
+	    	    
 		    	ProcessBuilder pb = new ProcessBuilder(ajiraScriptFileName);
 		    	Process p = pb.start();
 		    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
