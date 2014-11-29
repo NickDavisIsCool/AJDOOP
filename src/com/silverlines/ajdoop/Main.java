@@ -157,6 +157,7 @@ public class Main {
 	    		}
 	    	}
 	    	bw.write(ajira_reg);
+	    	bw.close();
 	    	
 	    	bw = new BufferedWriter(new FileWriter(hadInfo.getAbsoluteFile(), true));
 	    	for(i = 0; i < numFields; i++){
@@ -167,10 +168,11 @@ public class Main {
 	    			bw.write(output_data[i] + ",");
 	    		}
 	    	}
+	    	bw.close();
 	    }
 	    else if(ajira_reg.equals("0")){
 	    	//execute ajira script, get time data, calculate regression formula, write to file
-	    	ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", ajiraScriptFileName);
+	    	ProcessBuilder pb = new ProcessBuilder(ajiraScriptFileName);
 	    	Process p = pb.start();
 	    	p.waitFor();
 	    	String time = System.getenv("EXEC_TIME");
@@ -189,6 +191,7 @@ public class Main {
 	    			bw.write(reg_data[i] + ",");
 	    		}
 	    	}
+	    	bw.close();
 	    	
 	    	bw = new BufferedWriter(new FileWriter(ajiInfo.getAbsoluteFile(), true));
 	    	for(i = 0; i < numFields; i++){
@@ -199,6 +202,7 @@ public class Main {
 	    			bw.write(output_data[i] + ",");
 	    		}
 	    	}
+	    	bw.close();
 	    	
 	    }
 	    else{
@@ -213,7 +217,7 @@ public class Main {
 	    	}
 	    	
 	    	if(hadoop_sum < ajira_sum){
-		    	ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", hadoopScriptFileName);
+		    	ProcessBuilder pb = new ProcessBuilder(hadoopScriptFileName);
 		    	Process p = pb.start();
 		    	p.waitFor();
 		    	String time = System.getenv("EXEC_TIME");
@@ -259,6 +263,7 @@ public class Main {
 		    		}
 		    	}
 		    	bw.write(ajira_reg);
+		    	bw.close();
 
 		    	bw = new BufferedWriter(new FileWriter(hadInfo.getAbsoluteFile(), true));
 		    	for(i = 0; i < numFields; i++){
@@ -269,9 +274,10 @@ public class Main {
 		    			bw.write(output_data[i] + ",");
 		    		}
 		    	}
+		    	bw.close();
 	    	}
 	    	else{
-		    	ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", ajiraScriptFileName);
+		    	ProcessBuilder pb = new ProcessBuilder(ajiraScriptFileName);
 		    	Process p = pb.start();
 		    	p.waitFor();
 		    	String time = System.getenv("EXEC_TIME");
@@ -317,6 +323,7 @@ public class Main {
 		    			bw.write(reg_data[i] + ",");
 		    		}
 		    	}
+		    	bw.close();
 		    	
 		    	bw = new BufferedWriter(new FileWriter(ajiInfo.getAbsoluteFile(), true));
 		    	for(i = 0; i < numFields; i++){
@@ -327,6 +334,7 @@ public class Main {
 		    			bw.write(output_data[i] + ",");
 		    		}
 		    	}
+		    	bw.close();
 	    	}
 	    	
 	    }
