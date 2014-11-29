@@ -24,6 +24,7 @@ public class Main {
 		while(lnr.readLine() != null)
 			count++;
 		
+		lnr.close();
 		return count;
 	}
 
@@ -242,7 +243,7 @@ public class Main {
 	    	}
 	    	
 	    	if(hadoop_sum < ajira_sum){
-	    		int data_points = linesInFile(hadInfo) - 1;
+	    		int data_points = linesInFile(hadInfo);
 	    	    double[][] x = new double[data_points][data_fields.split(",").length];
 	    	    double[] y = new double[data_points];
 	    	    
@@ -315,7 +316,7 @@ public class Main {
 		    	bw.close();
 	    	}
 	    	else{
-	    		int data_points = linesInFile(ajiInfo) - 1;
+	    		int data_points = linesInFile(ajiInfo);
 	    	    double[][] x = new double[data_points][data_fields.split(",").length];
 	    	    double[] y = new double[data_points];
 	    	    
