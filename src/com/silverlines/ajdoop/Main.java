@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
@@ -86,7 +87,11 @@ public class Main {
 	    if(!regInfo.isFile()){
 	    	regInfo.createNewFile();
 	    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
-	    	bw.write(reg_fields + "\n0\n0");
+	    	bw.write(reg_fields);
+	    	bw.newLine();
+	    	bw.write("0");
+	    	bw.newLine();
+	    	bw.write("0");
 	    	bw.close();
 	    }
 	    if(!hadInfo.isFile()){
@@ -123,6 +128,7 @@ public class Main {
 	    String variables = br.readLine();
 	    String hadoop_reg = br.readLine();
 	    String ajira_reg = br.readLine();
+	    br.close();
 	    int numFields = reg_fields.split(",").length;
 	    double[][] x = null;
 	    double[] y = null;
@@ -135,11 +141,12 @@ public class Main {
 	    System.out.println(variables + "-"  + hadoop_reg + "-" + ajira_reg);
 	    
 	    if(hadoop_reg.equals("0")){
-	    	//execute hadoop script, get time data, calculate regression formula, write to file
+	    	//execute Hadoop script, get time data, calculate regression formula, write to file
 	    	ProcessBuilder pb = new ProcessBuilder(hadoopScriptFileName);
 	    	Process p = pb.start();
+	    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 	    	p.waitFor();
-	    	String time = System.getenv("EXEC_TIME");
+	    	String time = br.readLine();
 	    	
 	    	System.out.println("exec time, hadoop: " + time);
 	    	
@@ -147,10 +154,12 @@ public class Main {
 	    	String[] output_data = {time, Long.toString(size)};
 	    	
 	    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
-	    	bw.write(reg_fields + "\n");
+	    	bw.write(reg_fields);
+	    	bw.newLine();
 	    	for(i = 0; i < numFields; i++){
 	    		if(i == numFields -1){
-	    			bw.write(reg_data[i] + "\n");
+	    			bw.write(reg_data[i]);
+	    			bw.newLine();
 	    		}
 	    		else{
 	    			bw.write(reg_data[i] + ",");
@@ -160,9 +169,10 @@ public class Main {
 	    	bw.close();
 	    	
 	    	bw = new BufferedWriter(new FileWriter(hadInfo.getAbsoluteFile(), true));
+	    	bw.newLine();
 	    	for(i = 0; i < numFields; i++){
 	    		if(i == numFields -1){
-	    			bw.write(output_data[i] + "\n");
+	    			bw.write(output_data[i]);
 	    		}
 	    		else{
 	    			bw.write(output_data[i] + ",");
@@ -174,18 +184,24 @@ public class Main {
 	    	//execute ajira script, get time data, calculate regression formula, write to file
 	    	ProcessBuilder pb = new ProcessBuilder(ajiraScriptFileName);
 	    	Process p = pb.start();
+	    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 	    	p.waitFor();
-	    	String time = System.getenv("EXEC_TIME");
+	    	String time = br.readLine();
+	    	
+	    	System.out.println("exec time, ajira: " + time);
+
 	    	
 	    	String[] reg_data = {time, "0"};
 	    	String[] output_data = {time, Long.toString(size)};
 	    	
 	    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
-	    	bw.write(reg_fields + "\n");
-	    	bw.write(hadoop_reg + "\n");
+	    	bw.write(reg_fields);
+	    	bw.newLine();
+	    	bw.write(hadoop_reg);
+	    	bw.newLine();
 	    	for(i = 0; i < numFields; i++){
 	    		if(i == numFields -1){
-	    			bw.write(reg_data[i] + "\n");
+	    			bw.write(reg_data[i]);
 	    		}
 	    		else{
 	    			bw.write(reg_data[i] + ",");
@@ -194,9 +210,10 @@ public class Main {
 	    	bw.close();
 	    	
 	    	bw = new BufferedWriter(new FileWriter(ajiInfo.getAbsoluteFile(), true));
+	    	bw.newLine();
 	    	for(i = 0; i < numFields; i++){
 	    		if(i == numFields -1){
-	    			bw.write(output_data[i] + "\n");
+	    			bw.write(output_data[i]);
 	    		}
 	    		else{
 	    			bw.write(output_data[i] + ",");
@@ -253,10 +270,12 @@ public class Main {
 		    	String[] reg_data = {Double.toString(params[0]), Double.toString(params[1])};
 		    	
 		    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
-		    	bw.write(reg_fields + "\n");
+		    	bw.write(reg_fields);
+		    	bw.newLine();
 		    	for(i = 0; i < numFields; i++){
 		    		if(i == numFields -1){
-		    			bw.write(reg_data[i] + "\n");
+		    			bw.write(reg_data[i] );
+		    			bw.newLine();
 		    		}
 		    		else{
 		    			bw.write(reg_data[i] + ",");
@@ -266,9 +285,10 @@ public class Main {
 		    	bw.close();
 
 		    	bw = new BufferedWriter(new FileWriter(hadInfo.getAbsoluteFile(), true));
+		    	bw.newLine();
 		    	for(i = 0; i < numFields; i++){
 		    		if(i == numFields -1){
-		    			bw.write(output_data[i] + "\n");
+		    			bw.write(output_data[i]);
 		    		}
 		    		else{
 		    			bw.write(output_data[i] + ",");
@@ -313,11 +333,13 @@ public class Main {
 		    	String[] reg_data = {Double.toString(params[0]), Double.toString(params[1])};	    	
 		    	
 		    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
-		    	bw.write(reg_fields + "\n");
-		    	bw.write(hadoop_reg + "\n");
+		    	bw.write(reg_fields);
+		    	bw.newLine();
+		    	bw.write(hadoop_reg);
+		    	bw.newLine();
 		    	for(i = 0; i < numFields; i++){
 		    		if(i == numFields -1){
-		    			bw.write(reg_data[i] + "\n");
+		    			bw.write(reg_data[i]);
 		    		}
 		    		else{
 		    			bw.write(reg_data[i] + ",");
@@ -326,9 +348,10 @@ public class Main {
 		    	bw.close();
 		    	
 		    	bw = new BufferedWriter(new FileWriter(ajiInfo.getAbsoluteFile(), true));
+		    	bw.newLine();
 		    	for(i = 0; i < numFields; i++){
 		    		if(i == numFields -1){
-		    			bw.write(output_data[i] + "\n");
+		    			bw.write(output_data[i]);
 		    		}
 		    		else{
 		    			bw.write(output_data[i] + ",");

@@ -24,5 +24,4 @@ hdfs dfs -get $DFS_FILE_OUTPUT_DIR $LOCAL_FILE_OUTPUT_DIR
 #stop-all.sh
 
 
-#echo $DIFF
-export EXEC_TIME=$DIFF
+echo $DIFF
