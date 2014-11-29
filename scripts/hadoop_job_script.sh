@@ -1,5 +1,5 @@
 LOCAL_FILE_INPUT_DIR=$1
-FILES=$(basename $1)
+FILES=$(basename $LOCAL_FILE_INPUT_DIR)
 LOCAL_FILE_OUTPUT_DIR=/home/hduser/output/hadoop
 DFS_FILE_INPUT_DIR=/user/hduser/test_files
 DFS_FILE_OUTPUT_DIR=/user/hduser/output/hadoop/$FILES
