@@ -12,3 +12,4 @@ $LAUNCH -Dibis.pool.size=1 -Dibis.serverAddress=localhost $program $FILE_INPUT_D
 END=$(date +%s.%N)
 DIFF=$(echo "$END - $START" | bc)
 echo $DIFF
+export EXEC_TIME=$DIFF

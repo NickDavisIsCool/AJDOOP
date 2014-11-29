@@ -25,3 +25,4 @@ hdfs dfs -get $DFS_FILE_OUTPUT_DIR $LOCAL_FILE_OUTPUT_DIR
 
 
 #echo $DIFF
+export EXEC_TIME=$DIFF
