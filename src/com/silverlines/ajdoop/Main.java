@@ -152,6 +152,7 @@ public class Main {
 	    if(hadoop_reg.equals("0")){
 	    	//execute Hadoop script, get time data, calculate regression formula, write to file
 	    	ProcessBuilder pb = new ProcessBuilder(hadoopScriptFileName, inputFileName);
+	    	System.out.println(pb.command());
 	    	Process p = pb.start();
 	    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 	    	p.waitFor();
