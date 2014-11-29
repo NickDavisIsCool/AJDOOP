@@ -129,6 +129,8 @@ public class Main {
 	    String hadoop_reg = br.readLine();
 	    String ajira_reg = br.readLine();
 	    br.close();
+	    String line;
+	    String lineB = null;
 	    int numFields = reg_fields.split(",").length;
 	    double[][] x = null;
 	    double[] y = null;
@@ -146,7 +148,10 @@ public class Main {
 	    	Process p = pb.start();
 	    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 	    	p.waitFor();
-	    	String time = br.readLine();
+	    	while((line = br.readLine()) != null){
+	    		lineB = line;
+	    	}
+	    	String time = lineB;
 	    	
 	    	System.out.println("exec time, hadoop: " + time);
 	    	
@@ -185,7 +190,7 @@ public class Main {
 	    	ProcessBuilder pb = new ProcessBuilder(ajiraScriptFileName);
 	    	Process p = pb.start();
 	    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-	    	p.waitFor();
+	    	p.waitFor(); 
 	    	String time = br.readLine();
 	    	
 	    	System.out.println("exec time, ajira: " + time);
@@ -243,7 +248,6 @@ public class Main {
 		    	
 			    br = new BufferedReader(new FileReader(hadInfo));
 			    br.readLine();
-			    String line;
 			    j = 0;
 			    while((line = br.readLine()) != null){
 			    	String[] tuple = line.split(",");
@@ -306,7 +310,6 @@ public class Main {
 		    	
 			    br = new BufferedReader(new FileReader(ajiInfo));
 			    br.readLine();
-			    String line;
 			    j = 0;
 			    while((line = br.readLine()) != null){
 			    	String[] tuple = line.split(",");
