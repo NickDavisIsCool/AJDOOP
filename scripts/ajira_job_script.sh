@@ -1,6 +1,6 @@
 program="nl.vu.cs.ajira.examples.WordCount"
 FILE_INPUT_DIR=$1
-FILES=$(basename $1)
+FILES=$(basename $FILE_INPUT_DIR)
 FILE_OUTPUT_DIR=/home/hduser/output/ajira/$FILES
 LAUNCH=/home/hduser/ajira/scripts/launch.sh
 
