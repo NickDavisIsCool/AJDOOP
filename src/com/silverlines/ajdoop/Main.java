@@ -132,16 +132,14 @@ public class Main {
 	    String line;
 	    String lineB = null;
 	    int numFields = reg_fields.split(",").length;
-	    double[][] x = null;
-	    double[] y = null;
+	    double[][] x = new double[100][100];
+	    double[] y = new double[100];
 	    
 	    OLSMultipleLinearRegression mlr = new OLSMultipleLinearRegression();
 	    
 	    double[] input_data = {1, (double)size};
 	    int i, j;
-	    
-	    System.out.println(variables + "-"  + hadoop_reg + "-" + ajira_reg);
-	    
+	    	    
 	    if(hadoop_reg.equals("0")){
 	    	//execute Hadoop script, get time data, calculate regression formula, write to file
 	    	ProcessBuilder pb = new ProcessBuilder(hadoopScriptFileName);
@@ -152,9 +150,8 @@ public class Main {
 	    		lineB = line;
 	    	}
 	    	String time = lineB;
-	    	
-	    	System.out.println("exec time, hadoop: " + time);
-	    	
+	    	br.close();
+	    		    	
 	    	String[] reg_data = {time, "0"};
 	    	String[] output_data = {time, Long.toString(size)};
 	    	
@@ -192,9 +189,7 @@ public class Main {
 	    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 	    	p.waitFor(); 
 	    	String time = br.readLine();
-	    	
-	    	System.out.println("exec time, ajira: " + time);
-
+	    	br.close();
 	    	
 	    	String[] reg_data = {time, "0"};
 	    	String[] output_data = {time, Long.toString(size)};
@@ -271,6 +266,7 @@ public class Main {
 			    	}
 			    	x[j][i-1] = Double.parseDouble(output_data[i]);
 			    }
+			    br.close();
 			    
 			    mlr.newSampleData(y,x);
 			    double[] params = mlr.estimateRegressionParameters();
@@ -334,6 +330,7 @@ public class Main {
 			    	}
 			    	x[j][i-1] = Double.parseDouble(output_data[i]);
 			    }
+			    br.close();
 			    
 			    mlr.newSampleData(y,x);
 			    double[] params = mlr.estimateRegressionParameters();
