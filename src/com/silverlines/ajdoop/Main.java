@@ -20,22 +20,22 @@ public class Main {
 	
 	    //Read in arguments and get things set up
 	    //Make sure the user supplies all 4 arguments
-	    if (args.length != (4 + 1)){
+	    if (args.length != 4){
 	    	System.err.println("Wrong number of arguments.");
 	    	System.exit(1);
 	    }
 	    
 	    //The type of program run (eg wordcount, sort, etc.)
-	    String programType = args[1];
+	    String programType = args[0];
 	    
 	    //The input directory
-	    String inputFileName = args[2];
+	    String inputFileName = args[1];
 	    
 	    //The script which will execute the Hadoop implementation of the problem
-	    String hadoopScriptFileName = args[3];
+	    String hadoopScriptFileName = args[2];
 	    
 	    //The script which will execute the ajira implementation of the problem
-	    String ajiraScriptFileName = args[4];
+	    String ajiraScriptFileName = args[3];
 	    
 	    String reg_fields = "intercept,data_size";
 	    String data_fields = "time,data_size";
