@@ -244,7 +244,7 @@ public class Main {
 	    	
 	    	if(hadoop_sum < ajira_sum){
 	    		int data_points = linesInFile(hadInfo);
-	    	    double[][] x = new double[data_points][data_fields.split(",").length];
+	    	    double[][] x = new double[data_points][data_fields.split(",").length - 1];
 	    	    double[] y = new double[data_points];
 	    	    
 		    	ProcessBuilder pb = new ProcessBuilder(hadoopScriptFileName);
@@ -317,7 +317,7 @@ public class Main {
 	    	}
 	    	else{
 	    		int data_points = linesInFile(ajiInfo);
-	    	    double[][] x = new double[data_points][data_fields.split(",").length];
+	    	    double[][] x = new double[data_points][data_fields.split(",").length - 1];
 	    	    double[] y = new double[data_points];
 	    	    
 		    	ProcessBuilder pb = new ProcessBuilder(ajiraScriptFileName);
