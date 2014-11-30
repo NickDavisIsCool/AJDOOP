@@ -305,16 +305,16 @@ public class Main {
 			    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
 			    	bw.write(reg_fields);
 			    	bw.newLine();
-			    	bw.write(hadoop_reg);
-			    	bw.newLine();
 			    	for(i = 0; i < numFields; i++){
 			    		if(i == numFields -1){
 			    			bw.write(reg_data[i]);
+			    			bw.newLine();
 			    		}
 			    		else{
 			    			bw.write(reg_data[i] + ",");
 			    		}
 			    	}
+			    	bw.write(ajira_reg);
 			    	bw.close();
 			    	
 			    	bw = new BufferedWriter(new FileWriter(hadInfo.getAbsoluteFile(), true));
@@ -336,16 +336,16 @@ public class Main {
 			    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
 			    	bw.write(reg_fields);
 			    	bw.newLine();
-			    	bw.write(hadoop_reg);
-			    	bw.newLine();
 			    	for(i = 0; i < numFields; i++){
 			    		if(i == numFields -1){
 			    			bw.write(reg_data[i]);
+			    			bw.newLine();
 			    		}
 			    		else{
 			    			bw.write(reg_data[i] + ",");
 			    		}
 			    	}
+			    	bw.write(ajira_reg);
 			    	bw.close();
 			    	
 			    	bw = new BufferedWriter(new FileWriter(hadInfo.getAbsoluteFile(), true));
