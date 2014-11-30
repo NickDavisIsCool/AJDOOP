@@ -32,6 +32,9 @@ public class Main {
 	
 	    //Read in arguments and get things set up
 	    //Make sure the user supplies all 4 arguments
+		long startTime = System.currentTimeMillis();
+		long stopTime = 0;
+		long middleTime = 0;
 	    if (args.length != 4){
 	    	System.err.println("Wrong number of arguments.");
 	    	System.exit(1);
@@ -163,10 +166,15 @@ public class Main {
 	    	    
 	    if(hadoop_reg.equals("0")){
 	    	//execute Hadoop script, get time data, calculate regression formula, write to file
+	    	stopTime = System.currentTimeMillis();
+	    	middleTime += stopTime - startTime;
 	    	ProcessBuilder pb = new ProcessBuilder(hadoopScriptFileName, inputFileName);
 	    	Process p = pb.start();
 	    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 	    	p.waitFor();
+	    	
+	    	startTime = System.currentTimeMillis();
+	    	
 	    	while((line = br.readLine()) != null){
 	    		lineB = line;
 	    	}
@@ -205,10 +213,15 @@ public class Main {
 	    }
 	    else if(ajira_reg.equals("0")){
 	    	//execute ajira script, get time data, calculate regression formula, write to file
+	    	stopTime = System.currentTimeMillis();
+	    	middleTime += stopTime - startTime;
 	    	ProcessBuilder pb = new ProcessBuilder(ajiraScriptFileName, inputFileName);
 	    	Process p = pb.start();
 	    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 	    	p.waitFor(); 
+	    	
+	    	startTime = System.currentTimeMillis();
+	    	
 	    	String time = br.readLine();
 	    	br.close();
 	    	
@@ -259,10 +272,15 @@ public class Main {
 	    	    double[][] x = new double[data_points][data_fields.split(",").length - 1];
 	    	    double[] y = new double[data_points];
 	    	    
+		    	stopTime = System.currentTimeMillis();
+		    	middleTime += stopTime - startTime;
 		    	ProcessBuilder pb = new ProcessBuilder(hadoopScriptFileName, inputFileName);
 		    	Process p = pb.start();
 		    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		    	p.waitFor();
+		    	
+		    	startTime = System.currentTimeMillis();
+		    	
 		    	while((line = br.readLine()) != null){
 		    		lineB = line;
 		    	}
@@ -366,12 +384,16 @@ public class Main {
 	    	    double[][] x = new double[data_points][data_fields.split(",").length - 1];
 	    	    double[] y = new double[data_points];
 	    	    
+		    	stopTime = System.currentTimeMillis();
+		    	middleTime += stopTime - startTime;
 		    	ProcessBuilder pb = new ProcessBuilder(ajiraScriptFileName, inputFileName);
 		    	Process p = pb.start();
 		    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		    	p.waitFor(); 
-		    	String time = br.readLine();
 		    	
+		    	startTime = System.currentTimeMillis();
+
+		    	String time = br.readLine();
 		    	String[] output_data = {time, Long.toString(size)};
 		    	
 			    br = new BufferedReader(new FileReader(ajiInfo));
@@ -465,7 +487,11 @@ public class Main {
 			    }
 	    	}
 	    	
+	    	stopTime = System.currentTimeMillis();
+	    	middleTime += stopTime - startTime;
+	    	System.out.println(middleTime);
 	    }
+	    
 	    
 	    //END
 
