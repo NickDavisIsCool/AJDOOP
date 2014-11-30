@@ -295,7 +295,7 @@ public class Main {
 			    }
 			    br.close();
 			    			    
-			    if(j > numFields){
+			    if(data_points > numFields-1){
 				    mlr.newSampleData(y,x);
 
 					double[] params = mlr.estimateRegressionParameters();
@@ -399,7 +399,7 @@ public class Main {
 			    }
 			    br.close();
 			    			    
-			    if(j > numFields){
+			    if(data_points > numFields-1){
 				    mlr.newSampleData(y,x);
 					double[] params = mlr.estimateRegressionParameters();
 				    String[] reg_data = {Double.toString(params[0]), Double.toString(params[1]), Double.toString(params[2])};	 
