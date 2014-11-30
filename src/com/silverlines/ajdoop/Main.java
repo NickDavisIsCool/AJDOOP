@@ -487,11 +487,11 @@ public class Main {
 			    }
 	    	}
 	    	
-	    	stopTime = System.currentTimeMillis();
-	    	middleTime += stopTime - startTime;
-	    	System.out.println(middleTime);
 	    }
 	    
+    	stopTime = System.currentTimeMillis();
+    	middleTime += stopTime - startTime;
+    	System.out.println(middleTime);
 	    
 	    //END
 
