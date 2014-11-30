@@ -274,17 +274,20 @@ public class Main {
 	    	    
 		    	stopTime = System.currentTimeMillis();
 		    	middleTime += stopTime - startTime;
+		    	System.out.println("you got to process");
 		    	ProcessBuilder pb = new ProcessBuilder(hadoopScriptFileName, inputFileName);
 		    	Process p = pb.start();
 		    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		    	p.waitFor();
 		    	
 		    	startTime = System.currentTimeMillis();
+		    	System.out.println("you got to ending");
 		    	
 		    	while((line = br.readLine()) != null){
 		    		lineB = line;
 		    	}
 		    	String time = lineB;
+		    	br.close();
 		    	
 		    	String[] output_data = {time, Long.toString(size)};
 		    	
@@ -394,6 +397,8 @@ public class Main {
 		    	startTime = System.currentTimeMillis();
 
 		    	String time = br.readLine();
+		    	br.close();
+
 		    	String[] output_data = {time, Long.toString(size)};
 		    	
 			    br = new BufferedReader(new FileReader(ajiInfo));
