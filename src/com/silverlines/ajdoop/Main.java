@@ -168,10 +168,12 @@ public class Main {
 	    	//execute Hadoop script, get time data, calculate regression formula, write to file
 	    	stopTime = System.currentTimeMillis();
 	    	middleTime += stopTime - startTime;
+	    	System.out.println("you got to process");
 	    	ProcessBuilder pb = new ProcessBuilder(hadoopScriptFileName, inputFileName);
 	    	Process p = pb.start();
 	    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 	    	p.waitFor();
+	    	System.out.println("you finished");
 	    	
 	    	startTime = System.currentTimeMillis();
 	    	
