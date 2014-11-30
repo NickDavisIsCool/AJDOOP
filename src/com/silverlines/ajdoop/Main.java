@@ -294,10 +294,10 @@ public class Main {
 			    	}
 			    }
 			    br.close();
-			    
-			    mlr.newSampleData(y,x);
-			    
+			    			    
 			    if(j > numFields){
+				    mlr.newSampleData(y,x);
+
 					double[] params = mlr.estimateRegressionParameters();
 				    String[] reg_data = {Double.toString(params[0]), Double.toString(params[1]), Double.toString(params[2])};	 
 				   
@@ -398,10 +398,9 @@ public class Main {
 			    	}
 			    }
 			    br.close();
-			    
-			    mlr.newSampleData(y,x);
-			    
+			    			    
 			    if(j > numFields){
+				    mlr.newSampleData(y,x);
 					double[] params = mlr.estimateRegressionParameters();
 				    String[] reg_data = {Double.toString(params[0]), Double.toString(params[1]), Double.toString(params[2])};	 
 				   
