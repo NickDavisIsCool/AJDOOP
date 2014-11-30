@@ -268,7 +268,7 @@ public class Main {
 		    	}
 		    	String time = lineB;
 		    	
-		    	String[] output_data = {time, Long.toString(size)};
+		    	String[] output_data = {time, Long.toString(size), Long.toString(nodes)};
 		    	
 			    br = new BufferedReader(new FileReader(hadInfo));
 			    br.readLine();
@@ -338,7 +338,7 @@ public class Main {
 		    	p.waitFor(); 
 		    	String time = br.readLine();
 		    	
-		    	String[] output_data = {time, Long.toString(size)};
+		    	String[] output_data = {time, Long.toString(size), Long.toString(nodes)};
 		    	
 			    br = new BufferedReader(new FileReader(ajiInfo));
 			    br.readLine();
