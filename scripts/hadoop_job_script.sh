@@ -11,7 +11,7 @@ program="wordcount"
 rm -rf $LOCAL_FILE_OUTPUT_DIR
 hdfs dfs -rm -r $DFS_FILE_OUTPUT_DIR
 
-hdfs dfs -copyFromLocal $LOCAL_FILE_INPUT_DIR $DFS_FILE_INPUT_DIR
+hdfs dfs -copyFromLocal $LOCAL_FILE_INPUT_DIR $DFS_FILE_INPUT_DIR/$FILES
 
 START=$(date +%s.%N)
 hadoop jar $JAR $program $DFS_FILE_INPUT_DIR $DFS_FILE_OUTPUT_DIR
