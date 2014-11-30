@@ -296,36 +296,70 @@ public class Main {
 			    br.close();
 			    
 			    mlr.newSampleData(y,x);
-			    double[] params = mlr.estimateRegressionParameters();
 			    
-		    	String[] reg_data = {Double.toString(params[0]), Double.toString(params[1]), Double.toString(params[2])};
-		    	
-		    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
-		    	bw.write(reg_fields);
-		    	bw.newLine();
-		    	for(i = 0; i < numFields; i++){
-		    		if(i == numFields -1){
-		    			bw.write(reg_data[i] );
-		    			bw.newLine();
-		    		}
-		    		else{
-		    			bw.write(reg_data[i] + ",");
-		    		}
-		    	}
-		    	bw.write(ajira_reg);
-		    	bw.close();
-
-		    	bw = new BufferedWriter(new FileWriter(hadInfo.getAbsoluteFile(), true));
-		    	bw.newLine();
-		    	for(i = 0; i < numFields; i++){
-		    		if(i == numFields -1){
-		    			bw.write(output_data[i]);
-		    		}
-		    		else{
-		    			bw.write(output_data[i] + ",");
-		    		}
-		    	}
-		    	bw.close();
+			    if(j > numFields){
+					double[] params = mlr.estimateRegressionParameters();
+				    String[] reg_data = {Double.toString(params[0]), Double.toString(params[1]), Double.toString(params[2])};	 
+				   
+				    	
+			    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
+			    	bw.write(reg_fields);
+			    	bw.newLine();
+			    	bw.write(hadoop_reg);
+			    	bw.newLine();
+			    	for(i = 0; i < numFields; i++){
+			    		if(i == numFields -1){
+			    			bw.write(reg_data[i]);
+			    		}
+			    		else{
+			    			bw.write(reg_data[i] + ",");
+			    		}
+			    	}
+			    	bw.close();
+			    	
+			    	bw = new BufferedWriter(new FileWriter(hadInfo.getAbsoluteFile(), true));
+			    	bw.newLine();
+			    	for(i = 0; i < numFields; i++){
+			    		if(i == numFields -1){
+			    			bw.write(output_data[i]);
+			    		}
+			    		else{
+			    			bw.write(output_data[i] + ",");
+			    		}
+			    	}
+			    	bw.close();
+			    }
+			    else{
+				    String[] reg_data = {time, "0", "0"};	 
+				   
+				    	
+			    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
+			    	bw.write(reg_fields);
+			    	bw.newLine();
+			    	bw.write(hadoop_reg);
+			    	bw.newLine();
+			    	for(i = 0; i < numFields; i++){
+			    		if(i == numFields -1){
+			    			bw.write(reg_data[i]);
+			    		}
+			    		else{
+			    			bw.write(reg_data[i] + ",");
+			    		}
+			    	}
+			    	bw.close();
+			    	
+			    	bw = new BufferedWriter(new FileWriter(hadInfo.getAbsoluteFile(), true));
+			    	bw.newLine();
+			    	for(i = 0; i < numFields; i++){
+			    		if(i == numFields -1){
+			    			bw.write(output_data[i]);
+			    		}
+			    		else{
+			    			bw.write(output_data[i] + ",");
+			    		}
+			    	}
+			    	bw.close();			    	
+			    }
 	    	}
 	    	else{
 	    		int data_points = linesInFile(ajiInfo);
@@ -366,36 +400,70 @@ public class Main {
 			    br.close();
 			    
 			    mlr.newSampleData(y,x);
-			    double[] params = mlr.estimateRegressionParameters();
 			    
-		    	String[] reg_data = {Double.toString(params[0]), Double.toString(params[1]), Double.toString(params[2])};	    	
-		    	
-		    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
-		    	bw.write(reg_fields);
-		    	bw.newLine();
-		    	bw.write(hadoop_reg);
-		    	bw.newLine();
-		    	for(i = 0; i < numFields; i++){
-		    		if(i == numFields -1){
-		    			bw.write(reg_data[i]);
-		    		}
-		    		else{
-		    			bw.write(reg_data[i] + ",");
-		    		}
-		    	}
-		    	bw.close();
-		    	
-		    	bw = new BufferedWriter(new FileWriter(ajiInfo.getAbsoluteFile(), true));
-		    	bw.newLine();
-		    	for(i = 0; i < numFields; i++){
-		    		if(i == numFields -1){
-		    			bw.write(output_data[i]);
-		    		}
-		    		else{
-		    			bw.write(output_data[i] + ",");
-		    		}
-		    	}
-		    	bw.close();
+			    if(j > numFields){
+					double[] params = mlr.estimateRegressionParameters();
+				    String[] reg_data = {Double.toString(params[0]), Double.toString(params[1]), Double.toString(params[2])};	 
+				   
+				    	
+			    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
+			    	bw.write(reg_fields);
+			    	bw.newLine();
+			    	bw.write(hadoop_reg);
+			    	bw.newLine();
+			    	for(i = 0; i < numFields; i++){
+			    		if(i == numFields -1){
+			    			bw.write(reg_data[i]);
+			    		}
+			    		else{
+			    			bw.write(reg_data[i] + ",");
+			    		}
+			    	}
+			    	bw.close();
+			    	
+			    	bw = new BufferedWriter(new FileWriter(ajiInfo.getAbsoluteFile(), true));
+			    	bw.newLine();
+			    	for(i = 0; i < numFields; i++){
+			    		if(i == numFields -1){
+			    			bw.write(output_data[i]);
+			    		}
+			    		else{
+			    			bw.write(output_data[i] + ",");
+			    		}
+			    	}
+			    	bw.close();
+			    }
+			    else{
+				    String[] reg_data = {time, "0", "0"};	 
+				   
+				    	
+			    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
+			    	bw.write(reg_fields);
+			    	bw.newLine();
+			    	bw.write(hadoop_reg);
+			    	bw.newLine();
+			    	for(i = 0; i < numFields; i++){
+			    		if(i == numFields -1){
+			    			bw.write(reg_data[i]);
+			    		}
+			    		else{
+			    			bw.write(reg_data[i] + ",");
+			    		}
+			    	}
+			    	bw.close();
+			    	
+			    	bw = new BufferedWriter(new FileWriter(ajiInfo.getAbsoluteFile(), true));
+			    	bw.newLine();
+			    	for(i = 0; i < numFields; i++){
+			    		if(i == numFields -1){
+			    			bw.write(output_data[i]);
+			    		}
+			    		else{
+			    			bw.write(output_data[i] + ",");
+			    		}
+			    	}
+			    	bw.close();			    	
+			    }
 	    	}
 	    	
 	    }
