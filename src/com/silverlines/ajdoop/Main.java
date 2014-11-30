@@ -49,8 +49,8 @@ public class Main {
 	    //The script which will execute the ajira implementation of the problem
 	    String ajiraScriptFileName = args[3];
 	    
-	    String reg_fields = "intercept,data_size";
-	    String data_fields = "time,data_size";
+	    String reg_fields = "intercept,data_size,nodes";
+	    String data_fields = "time,data_size,nodes";
 
 	    
 	    // --------------------------------------------------------------------- //
@@ -72,6 +72,18 @@ public class Main {
 	    		size += file.length();
 	    	}
 	    }
+	    
+	    //calculate the number of nodes
+	    long nodes = 1;
+	    
+	    // --------------------------------------------------------------------- //
+	    // --------------------------------------------------------------------- //
+	    // 						ABSTRACT CLASS THINGY
+	    //	Does:
+	    //		1. For a parameter p, it calculates it
+	    //		2. Allows additional parameters to be added easily 
+	    //		3. Not implemented yet :p
+	    // --------------------------------------------------------------------- //
 
 	    
 	    // --------------------------------------------------------------------- //
@@ -146,13 +158,12 @@ public class Main {
 	    
 	    OLSMultipleLinearRegression mlr = new OLSMultipleLinearRegression();
 	    
-	    double[] input_data = {1, (double)size};
+	    double[] input_data = {1, (double)size, (double)nodes};
 	    int i, j;
 	    	    
 	    if(hadoop_reg.equals("0")){
 	    	//execute Hadoop script, get time data, calculate regression formula, write to file
 	    	ProcessBuilder pb = new ProcessBuilder(hadoopScriptFileName, inputFileName);
-	    	System.out.println(pb.command());
 	    	Process p = pb.start();
 	    	br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 	    	p.waitFor();
@@ -162,8 +173,8 @@ public class Main {
 	    	String time = lineB;
 	    	br.close();
 	    		    	
-	    	String[] reg_data = {time, "0"};
-	    	String[] output_data = {time, Long.toString(size)};
+	    	String[] reg_data = {time, "0", "0"};
+	    	String[] output_data = {time, Long.toString(size), Long.toString(nodes)};
 	    	
 	    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
 	    	bw.write(reg_fields);
@@ -201,8 +212,8 @@ public class Main {
 	    	String time = br.readLine();
 	    	br.close();
 	    	
-	    	String[] reg_data = {time, "0"};
-	    	String[] output_data = {time, Long.toString(size)};
+	    	String[] reg_data = {time, "0", "0"};
+	    	String[] output_data = {time, Long.toString(size), Long.toString(nodes)};
 	    	
 	    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
 	    	bw.write(reg_fields);
@@ -287,7 +298,7 @@ public class Main {
 			    mlr.newSampleData(y,x);
 			    double[] params = mlr.estimateRegressionParameters();
 			    
-		    	String[] reg_data = {Double.toString(params[0]), Double.toString(params[1])};
+		    	String[] reg_data = {Double.toString(params[0]), Double.toString(params[1]), Double.toString(params[2])};
 		    	
 		    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
 		    	bw.write(reg_fields);
@@ -357,7 +368,7 @@ public class Main {
 			    mlr.newSampleData(y,x);
 			    double[] params = mlr.estimateRegressionParameters();
 			    
-		    	String[] reg_data = {Double.toString(params[0]), Double.toString(params[1])};	    	
+		    	String[] reg_data = {Double.toString(params[0]), Double.toString(params[1]), Double.toString(params[2])};	    	
 		    	
 		    	BufferedWriter bw = new BufferedWriter(new FileWriter(regInfo.getAbsoluteFile()));
 		    	bw.write(reg_fields);
